@@ -1,0 +1,65 @@
+<m-container>
+  <h2 style="text-align: center;">📦 Saved Versions</h2>
+
+  <!-- Save Current Version Button -->
+  <div style="text-align: center; margin-bottom: 1rem;">
+    <button class="pure-button pure-button-primary" (click)="saveVersion()">
+      💾 Save Current Version
+    </button>
+  </div>
+
+  <hr />
+
+  <!-- Versions List -->
+  <div *ngFor="let version of versions" class="version-item" style="margin-bottom: 0.75rem;">
+    <input
+      type="checkbox"
+      [checked]="version.selected"
+      (change)="onVersionSelect(version)"
+    />
+    {{ version.timestamp | date: 'medium' }}
+
+    <button class="pure-button" style="margin-left: 0.5rem;" (click)="openModal(version)">👁 View</button>
+    <button class="pure-button" style="margin-left: 0.5rem;" (click)="deleteVersion(version.id)">🗑 Delete</button>
+  </div>
+
+  <!-- Modal for Version Details -->
+  <div class="modal" *ngIf="selectedVersion">
+    <div class="modal-content">
+      <span class="close" (click)="closeModal()">&times;</span>
+      <h3>📋 Version Details - {{ selectedVersion.timestamp | date: 'medium' }}</h3>
+      <ul>
+        <li *ngFor="let session of selectedVersion.data" style="margin-bottom: 0.5rem;">
+          📚 {{ session.course }} - Section {{ session.sectionNumber }}<br />
+          👤 {{ session.instructor }} | 🕒 Slot {{ session.slotNumber }} | 🏫 {{ session.campus }}
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Compare Button -->
+  <div style="text-align: center; margin-top: 1.5rem;">
+    <button
+      class="pure-button"
+      (click)="compareVersions()"
+      [disabled]="getSelectedVersions().length !== 2"
+    >
+      🔍 Compare Selected Versions
+    </button>
+  </div>
+
+  <!-- Comparison Results -->
+  <div *ngIf="comparisonResults.length > 0" style="margin-top: 2rem;">
+    <h3>🧾 Comparison Summary</h3>
+    <ul class="comparison-list">
+      <ng-container *ngFor="let diff of comparisonResults">
+        <li [innerHTML]="diff"></li>
+      </ng-container>
+    </ul>
+  </div>
+
+  <!-- No Versions Placeholder -->
+  <ng-template #noVersions>
+    <p>No saved versions found.</p>
+  </ng-template>
+</m-container>

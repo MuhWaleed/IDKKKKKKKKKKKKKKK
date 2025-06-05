@@ -1,0 +1,16 @@
+<m-container>
+  <div class="home-banner">
+    <h1>📅 CEN/EEN Scheduling App</h1>
+    <p>Plan and manage university schedules across campuses.</p>
+  </div>
+
+  <div class="home-card-grid">
+    <m-card [header]="'Manage Schedule'" [subheader]="'Add, edit, and view class sessions'">
+      <button class="pure-button pure-button-primary" (click)="goToSchedule()">Open Scheduler</button>
+    </m-card>
+
+    <m-card [header]="'View Saved Versions'" [subheader]="'Compare & Track schedule changes over time'">
+      <button class="pure-button" (click)="goToVersions()">Open Versions</button>
+    </m-card>
+  </div>
+</m-container>

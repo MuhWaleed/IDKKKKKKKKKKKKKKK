@@ -1,0 +1,145 @@
+<m-container>
+  <br><br>
+  <m-card [header]="'Add Courses'" class="add-course-card">
+    <h3 class="form-title">Add EEN/CEN Section</h3>
+
+    <form class="m-form-ula" (ngSubmit)="onSubmit(form)" #form="ngForm">
+      <!-- Slot -->
+      <label class="m-label">Slot</label>
+      <select class="m-input" [(ngModel)]="section.slotNumber" name="slot" #slotCtrl="ngModel" required>
+        <option *ngFor="let slot of [1,2,3,4,5,6,7,8,9,10,11,12,13,14]" [value]="slot">
+          Slot {{ slot }} – {{ slot <= 7 ? 'MW' : 'TR' }}
+        </option>
+      </select>
+      <m-aha *ngIf="(section.slotNumber < 1 || section.slotNumber > 14) && slotCtrl.touched" type="error" header="Validation Error">
+        Slot must be between 1 and 14.
+      </m-aha>
+
+      <!-- Course -->
+      <label class="m-label">Course</label>
+      <select class="m-input" name="course" [(ngModel)]="section.course" #courseCtrl="ngModel" required>
+        <option value="" disabled selected>Select a course</option>
+        <option *ngFor="let course of allowedCourses" [value]="course">{{ course }}</option>
+      </select>
+      <m-aha *ngIf="!allowedCourses.includes(section.course) && courseCtrl.touched" type="error" header="Validation Error">
+        Please select a valid course from the list.
+      </m-aha>
+
+      <!-- Section Number -->
+      <label class="m-label">Section Number</label>
+      <input class="m-input" type="text" name="sectionNumber" [(ngModel)]="section.sectionNumber" #sectionNumCtrl="ngModel" required />
+      <m-aha *ngIf="!isSectionNumberValid(section.sectionNumber) && sectionNumCtrl.touched" type="error" header="Validation Error">
+        Section number must be a number.
+      </m-aha>
+
+      <!-- Instructor -->
+      <label class="m-label">Instructor</label>
+      <input class="m-input" type="text" name="instructor" [(ngModel)]="section.instructor" #instructorCtrl="ngModel" required />
+      <m-aha *ngIf="!isInstructorValid(section.instructor) && instructorCtrl.touched" type="error" header="Validation Error">
+        Instructor name must be valid (e.g., Dr. Ahmed).
+      </m-aha>
+
+      <!-- Campus -->
+      <label class="m-label">Campus</label>
+      <select class="m-input" name="campus" [(ngModel)]="section.campus" required>
+        <option>Abu Dhabi</option>
+        <option>Al Ain</option>
+      </select>
+
+      <!-- Capacity -->
+      <label class="m-label">Expected Capacity</label>
+      <select class="m-input" name="capacity" [(ngModel)]="section.capacity" required>
+        <option value="Regular">Regular</option>
+        <option value="Large">Large</option>
+        <option value="Mega">Mega</option>
+      </select>
+
+      <!-- Submit -->
+      <button type="submit" [disabled]="!form.valid" class="m-btn m-btn-primary submit-btn">
+        ➕ Add Section
+      </button>
+    </form>
+  </m-card>
+
+  <m-card [header]="'Scheduling Issues Detected'" *ngIf="detectedIssues.length > 0" style="width: 80%; margin: 20px auto;">
+    <m-table
+      [data]="detectedIssues"
+      [columnsToBeDisplayed]="['displayType', 'message']"
+      [tableHeaders]="['Type', 'Message']"
+      [caption]="'Scheduling Warnings & Errors'">
+    </m-table>
+  </m-card>
+
+  <!-- Current Courses -->
+  <m-card [header]="'Current Courses'">
+    <div style="max-width: 1200px; margin: 0 auto;">
+      <table class="pure-table pure-table-bordered current-courses-table styled-table">
+        <thead>
+          <tr>
+            <th>Slot</th>
+            <th>Course</th>
+            <th>Section</th>
+            <th>Instructor</th>
+            <th>Campus</th>
+            <th>Capacity</th>
+            <th style="text-align: center;">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let section of sections">
+            <td>{{ section.slotNumber }}</td>
+            <td>{{ section.course }}</td>
+
+            <td *ngIf="editingKey !== section.key">{{ section.sectionNumber }}</td>
+            <td *ngIf="editingKey === section.key">
+              <input [(ngModel)]="section.sectionNumber" class="edit-input" />
+              <m-aha *ngIf="!isSectionNumberValid(section.sectionNumber)" type="error" header="Validation Error">
+                Section number must be a number.
+              </m-aha>
+            </td>
+
+            <td *ngIf="editingKey !== section.key">{{ section.instructor }}</td>
+            <td *ngIf="editingKey === section.key">
+              <input [(ngModel)]="section.instructor" class="edit-input" />
+              <m-aha *ngIf="!isInstructorValid(section.instructor)" type="error" header="Validation Error">
+                Instructor name must be valid (e.g., Dr. Ahmed).
+              </m-aha>
+            </td>
+
+            <td *ngIf="editingKey !== section.key">{{ section.campus }}</td>
+            <td *ngIf="editingKey === section.key">
+              <select [(ngModel)]="section.campus" class="edit-input">
+                <option>Abu Dhabi</option>
+                <option>Al Ain</option>
+              </select>
+            </td>
+
+            <td *ngIf="editingKey !== section.key">
+              <span class="badge" [ngClass]="section.capacity.toLowerCase()">{{ section.capacity }}</span>
+            </td>
+            <td *ngIf="editingKey === section.key">
+              <select [(ngModel)]="section.capacity" class="edit-input">
+                <option value="Regular">Regular</option>
+                <option value="Large">Large</option>
+                <option value="Mega">Mega</option>
+              </select>
+            </td>
+
+            <td style="text-align: center;">
+              <ng-container *ngIf="editingKey !== section.key; else editingButtons">
+                <button class="pure-button btn-edit" (click)="enableEditing(section)">✏️</button>
+                <button class="pure-button btn-delete" (click)="deleteSection(section)">❌</button>
+              </ng-container>
+              <ng-template #editingButtons>
+                <button class="pure-button pure-button-primary btn-save" (click)="saveSection(section)">💾</button>
+              </ng-template>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </m-card>
+
+  <app-schedule-grid [sections]="sections"></app-schedule-grid>
+  <app-load-table [sections]="sections"></app-load-table>
+</m-container>

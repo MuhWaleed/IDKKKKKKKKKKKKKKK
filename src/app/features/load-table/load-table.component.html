@@ -1,0 +1,18 @@
+<m-card [header]="'Faculty Load Summary'" [subheader]="'Overview of instructor loads across courses'">
+  <h3 style="text-align: center; margin-bottom: 1rem;">Faculty Load Summary</h3>
+
+  <table class="pure-table pure-table-bordered" style="width: 100%;">
+    <thead>
+      <tr>
+        <th>Instructor</th>
+        <th>Load</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let load of instructorLoads" [ngStyle]="{ 'background-color': load.color }">
+        <td>{{ load.instructor }}</td>
+        <td>{{ load.count }}</td>
+      </tr>
+    </tbody>
+  </table>
+</m-card>

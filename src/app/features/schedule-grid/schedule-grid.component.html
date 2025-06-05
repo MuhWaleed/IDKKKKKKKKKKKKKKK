@@ -1,0 +1,55 @@
+<m-card [header]="'Schedule grid'" [subheader]="'Check for Available Slots & class sessions across campuses'">
+  <div class="campus-grid">
+
+    <div class="campus-block">
+      <h3 class="campus-title">Abu Dhabi Campus</h3>
+      <table class="styled-schedule-table">
+        <thead>
+          <tr>
+            <th>Slot</th>
+            <th>Time</th>
+            <th>Session</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let slot of slots">
+            <td>{{ slot.number }}</td>
+            <td>{{ slot.label }}</td>
+            <td>
+              <div *ngFor="let session of getSectionsForSlot(slot.number, 'Abu Dhabi')" class="session-block">
+                <span class="course-tag">{{ session.course }}-{{ session.sectionNumber }}</span><br />
+                <span class="instructor-name">{{ session.instructor }}</span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="campus-block">
+      <h3 class="campus-title">Al Ain Campus</h3>
+      <table class="styled-schedule-table">
+        <thead>
+          <tr>
+            <th>Slot</th>
+            <th>Time</th>
+            <th>Session</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let slot of slots">
+            <td>{{ slot.number }}</td>
+            <td>{{ slot.label }}</td>
+            <td>
+              <div *ngFor="let session of getSectionsForSlot(slot.number, 'Al Ain')" class="session-block">
+                <span class="course-tag">{{ session.course }}-{{ session.sectionNumber }}</span><br />
+                <span class="instructor-name">{{ session.instructor }}</span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</m-card>

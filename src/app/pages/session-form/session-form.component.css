@@ -1,0 +1,220 @@
+.m-card {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+}
+  m-delete-button {
+    cursor: pointer;
+    color: red;
+  }
+
+  .error-row {
+  background-color: #ffe0e0;
+
+  .warning-row {
+  background-color: #fff9db;
+
+  
+}
+}
+
+
+m-table td:nth-child(1),
+m-table th:nth-child(1) {
+  width: 100px;
+  white-space: nowrap;
+  text-align: center;
+}
+
+
+m-table td:nth-child(2),
+m-table th:nth-child(2) {
+  width: auto;
+}
+
+
+m-table ::ng-deep table tr td:first-child,
+m-table ::ng-deep table tr th:first-child {
+  width: 120px;
+  max-width: 120px;
+  white-space: nowrap;
+  text-align: center;
+}
+
+
+m-table ::ng-deep table tr td:nth-child(2),
+m-table ::ng-deep table tr th:nth-child(2) {
+  width: auto;
+  white-space: normal;
+}
+
+
+.current-courses-table {
+  width: 100%;
+  font-size: 14px;
+  border-spacing: 0;
+}
+
+.current-courses-table th,
+.current-courses-table td {
+  padding: 10px 12px;
+  vertical-align: middle;
+}
+
+.edit-input {
+  width: 100%;
+  padding: 4px 8px;
+  font-size: 13px;
+}
+
+.badge {
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: bold;
+  color: white;
+  display: inline-block;
+}
+
+.badge.regular {
+  background-color: #3498db;
+}
+.badge.large {
+  background-color: #f1c40f;
+  color: #000;
+}
+.badge.mega {
+  background-color: #e74c3c;
+}
+
+.btn-edit {
+  background-color: #f0f0f0;
+  margin-right: 4px;
+}
+.btn-delete {
+  background-color: #ffe0e0;
+  color: #c0392b;
+}
+.btn-save {
+  background-color: #2ecc71;
+  color: white;
+}
+
+
+/* Style for current courses table */
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  margin-top: 20px;
+}
+
+.styled-table th, .styled-table td {
+  padding: 12px 15px;
+  text-align: center;
+}
+
+.styled-table thead {
+  background-color: #f4f4f4;
+  font-weight: bold;
+  border-bottom: 2px solid #ccc;
+}
+
+.styled-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.styled-table .badge {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  color: white;
+}
+
+.badge.regular {
+  background-color: #007bff;
+}
+
+.badge.large {
+  background-color: #28a745;
+}
+
+.badge.mega {
+  background-color: #dc3545;
+}
+
+/* Action Buttons */
+.btn-edit,
+.btn-delete,
+.btn-save {
+  font-size: 14px;
+  padding: 4px 8px;
+  margin: 0 2px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-edit {
+  background-color: #ffc107;
+  color: black;
+}
+
+.btn-delete {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn-save {
+  background-color: #28a745;
+  color: white;
+}
+
+.add-course-card {
+  width: 600px;
+  margin: 40px auto 0 auto;
+  padding: 20px;
+  background-color: #fafafa;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.form-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.25rem;
+  color: #333;
+}
+
+.m-form-ula label {
+  display: block;
+  margin-top: 12px;
+  font-weight: 600;
+  color: #555;
+}
+
+.m-input {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-top: 4px;
+  box-sizing: border-box;
+}
+
+.submit-btn {
+  width: 100%;
+  margin-top: 20px;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 6px;
+  transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+  background-color: #0056b3;
+}

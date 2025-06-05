@@ -1,0 +1,23 @@
+<div
+  class="compass-container"
+  [ngStyle]="{
+    width: size,
+    marginLeft: centered ? 'auto' : '',
+    marginRight: centered ? 'auto' : ''
+  }"
+>
+  <div class="compass-rose" [style.transform]="rotationStyle">
+    <div class="dial">
+      <span class="north">N</span>
+      <span class="east">E</span>
+      <span class="south">S</span>
+      <span class="west">W</span>
+    </div>
+  </div>
+
+  <div class="direction-indicator"></div>
+
+  <div class="angle-display">
+    {{ angle | number:'1.1-1' }}&deg;
+  </div>
+</div>
